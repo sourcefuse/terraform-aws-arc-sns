@@ -4,12 +4,6 @@ locals {
   name       = try(trimsuffix(var.name, ".fifo"), "")
   topic_name = var.fifo_topic ? "${local.name}.fifo" : local.name
 
-  # Lambda subscriptions for permission creation
-  lambda_subscriptions = {
-    for k, v in var.subscriptions : k => v
-    if v.protocol == "lambda" && var.create_subscription
-  }
-
   # Common tags
   common_tags = merge(
     var.tags,
@@ -79,26 +73,6 @@ resource "aws_sns_topic_subscription" "this" {
   filter_policy_scope             = each.value.filter_policy != null ? try(each.value.filter_policy_scope, null) : null
   delivery_policy                 = try(each.value.delivery_policy, null)
   redrive_policy                  = try(each.value.redrive_policy, null)
-}
-
-# Lambda permissions for SNS to invoke Lambda functions
-resource "aws_lambda_permission" "sns_invoke" {
-  for_each = var.create_topic ? local.lambda_subscriptions : {}
-
-  statement_id  = "AllowExecutionFromSNS-${each.key}"
-  action        = "lambda:InvokeFunction"
-  function_name = each.value.endpoint
-  principal     = "sns.amazonaws.com"
-  source_arn    = aws_sns_topic.this[0].arn
-}
-
-# Additional Lambda permissions for external functions
-resource "aws_lambda_permission" "external_lambda" {
-  for_each = var.create_topic ? var.lambda_permissions : {}
-
-  statement_id  = "AllowExecutionFromSNS-${each.key}"
-  action        = "lambda:InvokeFunction"
-  function_name = each.value
-  principal     = "sns.amazonaws.com"
-  source_arn    = aws_sns_topic.this[0].arn
+  subscription_role_arn           = try(each.value.subscription_role_arn, null)
+  replay_policy                   = try(each.value.replay_policy, null)
 }

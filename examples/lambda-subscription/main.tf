@@ -35,6 +35,14 @@ module "lambda" {
   filename      = "${path.module}/lambda/lambda_function.zip"
   timeout       = 30
 
+  lambda_permissions = {
+    sns_invoke = {
+      action     = "lambda:InvokeFunction"
+      principal  = "sns.amazonaws.com"
+      source_arn = module.lambda_subscription_topic.topic_arn
+    }
+  }
+
   tags = module.tags.tags
 }
 

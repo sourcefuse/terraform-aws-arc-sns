@@ -182,6 +182,8 @@ variable "subscriptions" {
     filter_policy_scope             = optional(string)
     delivery_policy                 = optional(string)
     redrive_policy                  = optional(string)
+    subscription_role_arn           = optional(string)
+    replay_policy                   = optional(string)
   }))
   default = {}
 
@@ -196,11 +198,6 @@ variable "subscriptions" {
   }
 }
 
-variable "lambda_permissions" {
-  description = "Map of Lambda function ARNs that should be granted permission to be invoked by this SNS topic"
-  type        = map(string)
-  default     = {}
-}
 
 variable "tags" {
   description = "A map of tags to assign to the resource"
