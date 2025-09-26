@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Pushes Readme file
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@8f2c47e3b3b1f8e6c73947f91e68c72a9f5aef31
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           API_TOKEN_GITHUB: ${{ secrets.ARC_DOCS_API_TOKEN_GITHUB }}
@@ -40,7 +40,7 @@ jobs:
           commit-message: ${{ github.event.head_commit.message }}
 
       - name: Pushes Module Usage Guide
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: cpina/github-action-push-to-another-repository@76a67d3f4bb0b6f9f12aadc89e2a9e8db83db5b7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           API_TOKEN_GITHUB: ${{ secrets.ARC_DOCS_API_TOKEN_GITHUB }}
