@@ -25,7 +25,7 @@ jobs:
           commit_message: ${{ github.event.head_commit.message }}
 
       - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
+        uses: cpina/github-action-push-to-another-repository@76a67d3f4bb0b6f9f12aadc89e2a9e8db83db5b7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           API_TOKEN_GITHUB: ${{ secrets.ARC_DOCS_API_TOKEN_GITHUB }}
