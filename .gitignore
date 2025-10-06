@@ -4,3 +4,5 @@ terraform.tfstate
 *.backup
 .idea
 .external_momdules
+.DS_Store
+Thumbs.db
