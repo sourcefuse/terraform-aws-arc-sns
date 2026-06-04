@@ -21,6 +21,10 @@
 
 Creates SNS topics with subscriptions, KMS encryption, access policies, and FIFO support.
 
+## Architecture
+
+![Architecture Diagram](./static/arch.png)
+
 ## What It Does
 
 - Standard and FIFO SNS topics
